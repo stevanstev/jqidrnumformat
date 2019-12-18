@@ -1,5 +1,11 @@
-let formattingMoney = (isCustom,separatorStr="",startCustom="",endCustom="") => {
+let formattingMoney = (isCustom=0,separatorStr="",startCustom="",endCustom="") => {
   let formatting = $(".formatting");
+    //Invalid if user added number after endCustom string
+  let getMoney = isCustom === 1 ? formatting.val().split(endCustom)[0] : formatting.val();
+  //Remove all non digit for processing
+  getMoney = getMoney.replace(/[^0-9]/g,"");
+  let getLength = getMoney.length;
+  let result;
 
   let recursiveNumber = (number,length,separator) => {
       let result = "";
@@ -32,13 +38,6 @@ let formattingMoney = (isCustom,separatorStr="",startCustom="",endCustom="") => 
 
       return result;
   }
-
-  //Invalid if user added number after endCustom string
-  let getMoney = isCustom === 1 ? formatting.val().split(endCustom)[0] : getMoney;
-  //Remove all non digit for processing
-  getMoney = getMoney.replace(/[^0-9]/g,"");
-  let getLength = getMoney.length;
-  let result;
 
   if(getLength > 3){
       result = countMoney(getMoney,getLength,separatorStr);
